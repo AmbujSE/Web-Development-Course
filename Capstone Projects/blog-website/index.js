@@ -17,6 +17,10 @@ app.get("/contact", (req, res) => {
   res.render("contact.ejs");
 });
 
+app.get("/post", (req, res) => {
+  res.render("post.ejs");
+});
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
