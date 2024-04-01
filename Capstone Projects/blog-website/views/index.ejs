@@ -19,7 +19,7 @@
       <div class="col-md-10 col-lg-8 col-xl-7">
 
           <!-- Post preview-->
-          {% for post in all_posts %}
+          <!-- {% for post in all_posts %} -->
           <div class="post-preview">
               <a href="{{ url_for('show_post', index=post.id) }}">
                   <h2 class="post-title">{{ post.title }}</h2>
@@ -33,7 +33,7 @@
           </div>
           <!-- Divider-->
           <hr class="my-4" />
-          {% endfor %}
+          <!-- {% endfor %} -->
 
           <!-- Pager-->
           <div class="d-flex justify-content-end mb-4"><a class="btn btn-primary text-uppercase" href="#!">Older Posts →</a></div>
