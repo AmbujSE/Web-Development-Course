@@ -34,7 +34,7 @@ app.get("/contact", (req, res) => {
 });
 
 app.get("/post", (req, res) => {
-  res.render("post.ejs");
+  res.render("post.ejs", {posts: data});
 });
 
 app.listen(port, () => {
