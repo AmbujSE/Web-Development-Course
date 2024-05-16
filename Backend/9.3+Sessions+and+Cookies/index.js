@@ -65,19 +65,21 @@ app.post("/register", async (req, res) => {
     ]);
 
     if (checkResult.rows.length > 0) {
-      res.send("Email already exists. Try logging in.");
+      req.redirect("/login");
     } else {
-      //hashing the password and saving it in the database
       bcrypt.hash(password, saltRounds, async (err, hash) => {
         if (err) {
           console.error("Error hashing password:", err);
         } else {
-          console.log("Hashed Password:", hash);
-          await db.query(
-            "INSERT INTO users (email, password) VALUES ($1, $2)",
+          const result = await db.query(
+            "INSERT INTO users (email, password) VALUES ($1, $2) RETURNING *",
             [email, hash]
           );
-          res.render("secrets.ejs");
+          const user = result.rows[0];
+          req.login(user, (err) => {
+            console.log("success");
+            res.redirect("/secrets");
+          });
         }
       });
     }
@@ -95,7 +97,7 @@ app.post("/login",
 
 passport.use(
   new Strategy(async function verify(username, password, cb) {
-  console.log(username, password)
+  console.log(username)
   try {
     const result = await db.query("SELECT * FROM users WHERE email = $1", [
       username,
